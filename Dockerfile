@@ -3,6 +3,7 @@ WORKDIR /app
 ENV POETRY_VERSION=1.6.1
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir "poetry==$POETRY_VERSION"
+COPY alembic/env.py ./alembic/env.py
 COPY pyproject.toml poetry.lock* ./
 RUN poetry install --no-root --only main
 COPY . .
