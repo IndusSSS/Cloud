@@ -1,0 +1,9 @@
+fastapi
+sqlmodel
+asyncpg
+aioredis
+pydantic
+pytest
+httpx
+Faker
+mypy

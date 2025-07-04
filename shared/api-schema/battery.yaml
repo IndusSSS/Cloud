@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Battery Monitoring API
+  version: 1.0.0
+paths:
+  /api/v1/battery:
+    post:
+      summary: Create a new battery log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatteryLogCreate'
+      responses:
+        '200':
+          description: Battery log created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatteryLogRead'
+  /ws/battery/{device_id}:
+    websocket:
+      summary: Real-time battery log stream
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: WebSocket connection established
+components:
+  schemas:
+    BatteryLogCreate:
+      type: object
+      properties:
+        device_id:
+          type: string
+        temp_c:
+          type: number
+        health:
+          type: string
+        ts:
+          type: string
+          format: date-time
+    BatteryLogRead:
+      type: object
+      properties:
+        id:
+          type: integer
+        device_id:
+          type: string
+        temp_c:
+          type: number
+        health:
+          type: string
+        ts:
+          type: string
+          format: date-time
